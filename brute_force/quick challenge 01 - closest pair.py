@@ -6,7 +6,6 @@
 import os
 import math
 
-
 # Function to read coordinates from a file
 def read_coordinates_from_file(file_path):
     with open(file_path, 'r') as file:
