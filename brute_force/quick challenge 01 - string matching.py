@@ -8,7 +8,7 @@
 
 
 cadena = "this is a small example"
-patron = "small"
+patron = "is"
 
 print("Buscando: ", patron)
 print("Dentro de: ", cadena)
