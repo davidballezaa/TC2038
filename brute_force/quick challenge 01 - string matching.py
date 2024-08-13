@@ -53,9 +53,9 @@ patterns_file = './instances/string-matching-Patrones.txt'
 cadena, patrones = read_text_and_patterns(text_file, patterns_file)
 
 # Process each patron
+print("Texto procesando: ", cadena)
 for patron in patrones:
   print("Buscando: ", patron)
-  print("Dentro de: ", cadena)
   result = indicesPatron(cadena, patron)
   if result:
     print(f"Patrón '{patron}' encontrado en índices: {result}")
