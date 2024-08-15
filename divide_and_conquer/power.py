@@ -1,3 +1,6 @@
+# Time complexity: Since we're not saving results, we're doing O(N)
+# If we saved the results of our computations, we would have O(logN) complexity
+
 def power(a, n):
   if n == 0:
     return 1
