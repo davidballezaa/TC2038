@@ -51,5 +51,4 @@ def encontrar_moneda_falsa(monedas, inicio=0, moneda_legitima=None):
         # o en caso de que no exista un tercer grupo, continuamos la búsqueda.
         return encontrar_moneda_falsa(grupo1 + grupo2, inicio, grupo3[0] if grupo3 else None)
 
-indice_falsa = encontrar_moneda_falsa([1, 1, 1, 1, 1, 1, 1, 100, 1, 1, 1]) # 7
-print(f"La moneda falsa está en el índice: {indice_falsa}")
+print(f"La moneda falsa está en el índice: {encontrar_moneda_falsa([1, 1, 1, 1, 1, 1, 1, 100, 1, 1, 1])}")
