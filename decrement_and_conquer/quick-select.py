@@ -1,31 +1,59 @@
-def find_fake_coin(coins):
-    l = 0
-    r = len(coins) - 1
+# Time complexity: Worst O(n^2), best / average O(n)
 
-    while l <= r:
-        # Divide el rango en dos mitades
-        mid = l + (r - l) // 2
+def lomuto_partition(A, L, R):
+  """
+  Particiona el array usando el esquema de Lomuto basado en el pseudocódigo.
 
-        # Comparar la suma de la mitad izquierda con la mitad derecha
-        left_weight = sum(coins[l:mid+1])
-        right_weight = sum(coins[mid+1:r+1])
+  Parámetros:
+  A (list): La lista de elementos a particionar.
+  L (int): El índice inicial de la porción de la lista a particionar.
+  R (int): El índice final de la porción de la lista a particionar.
 
-        if left_weight < right_weight:
-            # La moneda falsa está en la mitad izquierda
-            r = mid
-        elif left_weight > right_weight:
-            # La moneda falsa está en la mitad derecha
-            l = mid + 1
-        else:
-            # Caso especial si hay una sola moneda en la lista
-            if r == l:
-                return l
-            return -1  # No se encontró la moneda falsa
+  Retorna:
+  int: El índice del pivote después de la partición.
+  """
+  s = L
+  pivote = A[L]
 
-    return l  # El índice de la moneda falsa
+  for i in range(L + 1, R + 1):
+      if A[i] < pivote:
+          s = s + 1
+          A[s], A[i] = A[i], A[s]
 
-# Ejemplo de uso:
-coins = [10, 10, 12, 10]  # Asumiendo que 9 es la moneda falsa
-index_of_fake = find_fake_coin(coins)
-print(f"La moneda falsa está en el indice: {index_of_fake}")
-#la complejidad es O(Log n)
+  A[s], A[L] = A[L], A[s]
+  return s
+
+def quick_select(A, L, R, k):
+  """
+  Encuentra el k-ésimo elemento más pequeño en la lista.
+
+  Parámetros:
+  A (list): La lista de elementos.
+  L (int): El índice inicial de la porción de la lista.
+  R (int): El índice final de la porción de la lista.
+  k (int): El índice del k-ésimo elemento más pequeño que estamos buscando.
+
+  Retorna:
+  int: El valor del k-ésimo elemento más pequeño.
+  """
+  if L == R:  # Caso base: si la lista contiene solo un elemento.
+      return A[L]
+
+  # Particionar la lista y obtener el índice del pivote.
+  s = lomuto_partition(A, L, R)
+
+  # Si el pivote está en la posición k, hemos encontrado el k-ésimo elemento más pequeño.
+  if s == k:
+      return A[s]
+  # Si el pivote está a la derecha de k, buscamos en la parte izquierda.
+  elif s > k:
+      return quick_select(A, L, s - 1, k)
+  # Si el pivote está a la izquierda de k, buscamos en la parte derecha.
+  else:
+      return quick_select(A, s + 1, R, k)
+
+# Ejemplo de uso
+A = [2, 1, 4, 5, 6, 7, 24, 8, 9]
+k = 2  # Queremos encontrar el tercer elemento más pequeño (k = 2 en índice 0-based)
+resultado = quick_select(A, 0, len(A) - 1, k)
+print(f"El {k+1}-ésimo elemento más pequeño es: {resultado}")
