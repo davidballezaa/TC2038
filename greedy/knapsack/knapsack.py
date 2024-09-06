@@ -1,3 +1,5 @@
+# Time Complexity: O(n log n) [sorting]
+
 def read_knapsack_file(file_name):
     items = []
     
